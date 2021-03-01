@@ -1,17 +1,25 @@
 import React, { Component } from "react";
+import Header from "./Header.js";
 import Photo from "./Photo.js";
 import User from "./User.js";
 
 class Home extends Component {
+  
   render() {
     return (
       <div>
-        <div className="ml-36">
-          <h1 className="text-4xl font-light mb-4 m-16 ">Photo Gallery</h1>
-          <div className="grid grid-flow-col grid-cols-2 grid-rows-1 gap-4">
-            <User />
-            <Photo />
-          </div>
+        <Header />
+        <div className="mx-auto h-full flex justify-center items-center">
+          <section className="flex flex-wrap p-4">
+            <div className="w-full md:w-1/2 p-4">
+              <User />
+            </div>
+            <div className="w-full md:w-1/2 p-4">
+              <div className="p-4">
+                <Photo />
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     );

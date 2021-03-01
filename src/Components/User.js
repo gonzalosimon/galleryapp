@@ -8,7 +8,7 @@ class User extends Component {
 
   componentDidMount() {
     axios
-      .get("https://jsonplaceholder.typicode.com/users?_limit=5") //I'll work with five by now
+      .get("https://jsonplaceholder.typicode.com/users?_limit=10") //I'll work with five by now
       .then((res) => {
         this.setState({
           users: res.data,
@@ -35,7 +35,7 @@ class User extends Component {
         </h2>
         <p>Photo Gallery is a simple website that...</p>
         <h1 className="text-3xl font-light mb-4 m-16">
-          Most Voted Users This Week
+          Top 10 Most Voted Users This Week
         </h1>
         {!userData ? (
           <p>...Loading</p>
@@ -60,10 +60,11 @@ class User extends Component {
                 </div>
               );
             })}
+            <p className="ml-64">View More</p>
           </ul>
         )}
         <h1 className="text-3xl font-light mb-4 m-16">
-          Most Voted Users Of All the Times
+          Top 10 Most Voted Users Of All the Times
         </h1>
         {!userData ? (
           <p>...Loading</p>
@@ -88,6 +89,7 @@ class User extends Component {
                 </div>
               );
             })}
+            <p className="ml-64">View More</p>
           </ul>
         )}
       </div>
