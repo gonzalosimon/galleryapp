@@ -1,89 +1,93 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Photo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      serverData: "",
-    };
-  }
+  state = {
+    photos: [], // this is the only thing whose state gets updated in this component
+  };
 
-  componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/photos?_start=0&_limit=2")
-      .then((res) => res.json())
-      .then((data) => this.setState({ serverData: data }));
+  // photos were not loading up until I used componentWillReceiveProps(nextProps). Src: http://busypeoples.github.io/post/react-component-lifecycle/
+  componentWillReceiveProps(nextProps) {
+    axios
+      .get(
+        // using the query in the url it takes less to load up because it doesn't have to load up all the items
+        `https://jsonplaceholder.typicode.com/photos?albumId=${nextProps.selectedAlbumId}&_limit=2`
+      )
+      .then((res) => {
+        this.setState({
+          photos: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
   }
 
   render() {
+    const photoData = this.state.photos; // makes it easier to access the state
     return (
       <div>
-        <div className="container my-14 m-auto px-4 md:px-12">
-          <div className="flex flex-wrap -mx-1 lg:-mx-4">
-            <div className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4">
-              {this.state.serverData
-                ? this.state.serverData.map((data) => <ViewData data={data} />)
-                : "Loading data..."}
-            </div>
+        {!photoData ? (
+          <p>...Loading</p>
+        ) : (
+          <div>
+            {photoData.map((photoItem) => {
+              // if (parseInt(this.state.selectedAlbumId) === parseInt(u.albumId)) // this condition is no longer needed because I am updating the axios api url
+              return (
+                <div>
+                  <article className="overflow-hidden m-4 rounded-lg shadow-lg">
+                    <a href="www.google.com">
+                      <img
+                        alt="photo_not_loaded"
+                        className="w-full"
+                        src={photoItem.thumbnailUrl}
+                      />
+                    </a>
+
+                    <header className="flex items-center justify-between leading-tight p-2 md:p-4">
+                      <h1 className="text-lg">
+                        <a
+                          className="no-underline hover:underline text-black"
+                          href="www.google.com"
+                        >
+                          {photoItem.title}
+                        </a>
+                      </h1>
+                      <p className="text-grey-darker text-sm">Date</p>
+                    </header>
+
+                    <div className="flex items-center justify-between leading-none p-2 md:p-4">
+                      <a
+                        className="flex items-center no-underline hover:underline text-black"
+                        href="www.google.com"
+                      >
+                        <img
+                          alt="Placeholder"
+                          className="block rounded-full"
+                          src="https://picsum.photos/32/32/?random"
+                        />
+                        <p className="ml-2 text-sm">Author Name</p>
+                      </a>
+                      <a
+                        className="no-underline text-grey-darker hover:text-red-dark"
+                        href="www.google.com"
+                      >
+                        <div className="mt-4">
+                          <i className="fa fa-heart">
+                            <span className="ml-2">2389 Up</span>
+                          </i>
+                          <i className="fa fa-comment">
+                            {" "}
+                            <span className="ml-2">937 Comments</span>{" "}
+                          </i>
+                          <span className="ml-2">Share</span>
+                        </div>
+                      </a>
+                    </div>
+                  </article>
+                </div>
+              );
+            })}
           </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-class ViewData extends Component {
-  render() {
-    return (
-      <div>
-        <article className="overflow-hidden m-4 rounded-lg shadow-lg">
-          <a href="#">
-            <img
-              alt="photo_not_loaded"
-              className="w-full"
-              src={this.props.data.url}
-            />
-          </a>
-
-          <header className="flex items-center justify-between leading-tight p-2 md:p-4">
-            <h1 className="text-lg">
-              <a className="no-underline hover:underline text-black" href="#">
-                {this.props.data.title}
-              </a>
-            </h1>
-            <p className="text-grey-darker text-sm">Date</p>
-          </header>
-
-          <div className="flex items-center justify-between leading-none p-2 md:p-4">
-            <a
-              className="flex items-center no-underline hover:underline text-black"
-              href="#"
-            >
-              <img
-                alt="Placeholder"
-                className="block rounded-full"
-                src="https://picsum.photos/32/32/?random"
-              />
-              <p className="ml-2 text-sm">Author Name</p>
-            </a>
-            <a
-              className="no-underline text-grey-darker hover:text-red-dark"
-              href="#"
-            >
-              <div className="mt-4">
-                <i className="fa fa-heart">
-                  <span className="ml-2">2389 Up</span>
-                </i>
-                <i className="fa fa-comment">
-                  {" "}
-                  <span className="ml-2">937 Comments</span>{" "}
-                </i>
-                <span className="ml-2">Share</span>
-              </div>
-            </a>
-          </div>
-        </article>
+        )}
       </div>
     );
   }
