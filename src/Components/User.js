@@ -17,6 +17,14 @@ class User extends Component {
       .catch((err) => console.log(err));
   }
 
+  handleshow() {
+    this.setState((prevState) => {
+      return {
+        show: !prevState.show,
+      };
+    });
+  }
+
   handleClick = (userId) => {
     // checks if user is active already, sets the state to false in home and consequently the button becomes white again
     if (userId === this.props.selectedUserId) {
@@ -43,55 +51,22 @@ class User extends Component {
           <ul>
             {userData.map((userItem) => {
               return (
-                <div
+                <form
+                  onSubmit={this.handlesubmit}
+                  className="h-10 px-5 m-4 font-bold py-2 px-4 text-purple-100 transition-colors duration-150 bg-purple-600 rounded-lg focus:shadow-outline hover:bg-purple-700"
                   key={userItem.id} // you can't render two things with the same id. either pass a key to map or do like this
                   // 1) call handleClick func with the user id as parameter
                   onClick={() => this.handleClick(userItem.id)}
                   // check if the selectedUserId I passed from Home as props is the same as the userId and changes its colour
-                  style={{
-                    // style wants an object. backgroundcolor is a convention for react which wouldn't accept "backgroud-color"
-                    backgroundColor:
-                      this.props.selectedUserId === userItem.id // check if the selectedUserId is the same and the one we are looping in
-                        ? "lightgreen"
-                        : "white",
-                  }}
                 >
                   {userItem.username}
-                </div>
+                  {this.state.show ? <button>Submit</button> : null}
+                </form>
               );
             })}
             <p className="ml-64">View More</p>
           </ul>
-        )}
-        <h1 className="text-3xl font-light mb-4 m-16">
-          Top 10 Most Voted Users Of All the Times
-        </h1>
-        {!userData ? (
-          <p>...Loading</p>
-        ) : (
-          <ul>
-            {userData.map((userItem) => {
-              return (
-                <div
-                  key={userItem.id} // you can't render two things with the same id. either pass a key to map or do like this
-                  // 1) call handleClick func with the user id as parameter
-                  onClick={() => this.handleClick(userItem.id)}
-                  // check if the selectedUserId I passed from Home as props is the same as the userId and changes its colour
-                  style={{
-                    // style wants an object. backgroundcolor is a convention for react which wouldn't accept "backgroud-color"
-                    backgroundColor:
-                      this.props.selectedUserId === userItem.id // check if the selectedUserId is the same and the one we are looping in
-                        ? "lightgreen"
-                        : "white",
-                  }}
-                >
-                  {userItem.username}
-                </div>
-              );
-            })}
-            <p className="ml-64">View More</p>
-          </ul>
-        )}
+        )}{" "}
       </div>
     );
   }

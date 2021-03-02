@@ -3,6 +3,8 @@ import Header from "./Header.js";
 import Photo from "./Photo.js";
 import Album from "./Album";
 import User from "./User.js";
+import Post from "./Post.js";
+import axios from "axios";
 
 class Home extends Component {
   state = {
@@ -18,11 +20,12 @@ class Home extends Component {
   onAlbumSelected = (albumId) => {
     this.setState({ selectedAlbumId: albumId });
   };
+
   render() {
     return (
       <div>
-        <div className='mx-auto h-full flex justify-center items-center'>
-        <Header />
+        <div className="mx-auto h-full flex justify-center items-center">
+          <Header />
         </div>
         <div className="mx-auto h-full flex justify-center items-center">
           <section className="flex flex-wrap p-4">
@@ -43,6 +46,10 @@ class Home extends Component {
                   onAlbumSelected={this.onAlbumSelected}
                 />
                 <Photo selectedAlbumId={this.state.selectedAlbumId} />
+                <h2 className="text-3xl font-light mb-4 m-16">
+                  You might be interested
+                </h2>
+                <FeedPhotos />
               </div>
             </div>
           </section>
@@ -51,4 +58,57 @@ class Home extends Component {
     );
   }
 }
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+class FeedPhotos extends Component {
+  state = {
+    photos: [],
+  };
+
+  componentWillReceiveProps(nextProps) {
+    axios
+      .get(
+        `https://jsonplaceholder.typicode.com/photos?albumId=${getRandomInt(
+          100
+        )}&_limit=2`
+      )
+      .then((res) => {
+        this.setState({
+          photos: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+
+  render() {
+    const photoData = this.state.photos;
+
+    return (
+      <div>
+        <div>
+          {!photoData ? (
+            <p>...Loading</p>
+          ) : (
+            <div>
+              {photoData.map((photoItem) => {
+                return (
+                  <div>
+                    <Post
+                      link={photoItem.thumbnailUrl}
+                      title={this.props.title}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+}
+
 export default Home;

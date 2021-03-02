@@ -17,7 +17,7 @@ class Header extends Component {
                 <input
                   type="search"
                   name="input2"
-                  className="w-80 mt-12 p-2"
+                  className="w-80 mt-12 p-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="Look for a user o a title!"
                 />
               </div>

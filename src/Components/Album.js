@@ -27,20 +27,22 @@ class Album extends Component {
   render() {
     const albumData = this.state.albums;
     return (
-      <div >
-        <select onChange={this.change}>
-          <option selected disabled>
-            Albums
-          </option>
-          {!albumData} ? <p>...Loading</p> :
-          {albumData.map((albumItem) => {
-            return (
-              <option value={albumItem.id}>
+      <div onClick={this.change}>
+        <div>
+          <h1 className="h-10 px-5 m-4 font-bold py-2 px-4 text-purple-100 transition-colors duration-150 bg-pink-600 rounded-lg focus:shadow-outline hover:bg-pink-500">Random Picture</h1>
+        </div>
+        {albumData.map((albumItem) => {
+          return (
+            <div>
+              <button
+                className="bg-blue-500 h-10 px-5 m-4 font-bold py-2 px-4 hover:bg-blue-700 text-white rounded"
+                value={albumItem.id}
+              >
                 {albumItem.title}
-              </option>
-            );
-          })}
-        </select>
+              </button>
+            </div>
+          );
+        })}
       </div>
     );
   }
