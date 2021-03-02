@@ -3,7 +3,7 @@ import axios from "axios";
 
 class Album extends Component {
   state = {
-    albums: [], //
+    albums: [],
   };
 
   componentWillReceiveProps(nextProps) {
@@ -27,15 +27,15 @@ class Album extends Component {
   render() {
     const albumData = this.state.albums;
     return (
-      <div className="album_container">
-        <select className="dropdown" onChange={this.change}>
+      <div >
+        <select onChange={this.change}>
           <option selected disabled>
             Albums
           </option>
           {!albumData} ? <p>...Loading</p> :
           {albumData.map((albumItem) => {
             return (
-              <option value={albumItem.id} className="album_box">
+              <option value={albumItem.id}>
                 {albumItem.title}
               </option>
             );
