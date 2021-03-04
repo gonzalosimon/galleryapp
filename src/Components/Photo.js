@@ -34,6 +34,7 @@ class Photo extends Component {
                   <Post
                     link={photoItem.thumbnailUrl}
                     title={this.props.title}
+                    username={this.props.selectedAlbumId}
                   />
                 </div>
               );

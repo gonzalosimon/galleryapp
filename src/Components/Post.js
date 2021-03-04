@@ -35,7 +35,7 @@ class Post extends Component {
                 className="block rounded-full"
                 src="https://picsum.photos/32/32/?random"
               />
-              <p className="ml-2 text-sm">Author Name</p>
+              <p className="ml-2 text-sm">{this.props.username}</p>
             </a>
             <a
               className="no-underline text-grey-darker hover:text-red-dark"
