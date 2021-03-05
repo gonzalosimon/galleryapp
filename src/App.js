@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Website from "./Components/Website.js";
-import Home from "./Components/Home.js";
+import Feed from "./Components/Feed.js";
 import Footer from "./Components/Footer.js";
 import Header from "./Components/Header.js";
 
@@ -10,11 +9,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="mx-auto h-full flex justify-center items-center">
-          <Header />
-        </div>
-        <Home />
-        <Website />
+        <Header />
+        <Feed />
         <Footer />
       </div>
     );

@@ -1,49 +1,51 @@
 import React, { Component } from "react";
-import Post from "./Post.js";
 import axios from "axios";
+import Search from "./SearchBar.js";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
-class Photo extends Component {
-  state = {
-    photos: [],
+class Home extends Component {
+  state = { images: [] };
+
+  onSearchSubmit = async (term) => {
+    const response = await axios.get("https://api.unsplash.com/search/photos", {
+      params: { query: term },
+      headers: {
+        Authorization: `Client-ID ${API_KEY}`,
+      },
+    });
+
+    this.setState({ images: response.data.results });
   };
 
-  componentWillReceiveProps(nextProps) {
-    axios
-      .get(
-        `https://jsonplaceholder.typicode.com/photos?albumId=${nextProps.selectedAlbumId}&_limit=2`
-      )
-      .then((res) => {
-        this.setState({
-          photos: res.data,
-        });
-      })
-      .catch((err) => console.log(err));
-  }
-
   render() {
-    const photoData = this.state.photos;
     return (
       <div>
-        {!photoData ? (
-          <p>...Loading</p>
-        ) : (
-          <div>
-            {photoData.map((photoItem) => {
-              return (
-                <div>
-                  <Post
-                    link={photoItem.thumbnailUrl}
-                    title={this.props.title}
-                    username={this.props.selectedAlbumId}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
+        <div className="md:p-24 bg-fixed md:flex bg-home-background">
+          <section className="flex items-center text-white flex flex-wrap p-12 pl-4 md:pl-80">
+            <div className="w-full md:w-1/2">
+              <div>
+                <h1 className="text-4xl font-bold md:m-16">Photo Gallery</h1>
+              </div>
+            </div>
+            <div className="w-full md:w-1/2 p-4">
+              <div className="p-4">
+                <Search userSubmit={this.onSearchSubmit} />
+                <p className="text-white mt-4">
+                  Trending: flower, wallpapers, backgrounds, happylove"
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div className="container my-12 mx-auto px-4 md:px-12">
+          <div className="flex flex-wrap -mx-1 lg:-mx-4">
+            <span>Found: {this.state.images.length} images</span>
+            <ImageList foundImages={this.state.images} />
+          </div>  
+        </div>
       </div>
     );
   }
 }
 
-export default Photo;
+export default Home;

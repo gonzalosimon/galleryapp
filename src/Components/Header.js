@@ -4,97 +4,73 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <div className="pt-4 font-sans">
-          <div className="wrapper max-w-xl pb-4 mx-auto ">
-            <header className="header h-12 md:h-16 flex items-center text-sm md:text-base">
+        <nav className="bg-white py-2 md:py-4">
+          <div className="container px-4 mx-auto md:flex md:items-center">
+            <div className="flex justify-between items-center">
+              <a href="#" className="font-bold text-xl text-indigo-600">
+                Gallery
+              </a>
+              <button
+                className="text-indigo-600 text-center border border-solid border-indigo-600 rounded hover:bg-indigo-800 hover:text-white transition-colors duration-300 border border-solid border-gray-600 ml-60 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden"
+                id="navbar-toggle"
+              > Log In
+              </button>
+              <button
+                className="border border-solid border-gray-600 mr-4 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden"
+                id="navbar-toggle"
+              > ≡
+              </button>
+              
+            </div>
+
+            <div
+              className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
+            >
               <a
                 href="#"
-                className="flex items-center text-grey-light hover:text-gray h-full px-4 md:px-5 no-underline"
+                className="p-2 lg:px-4 md:mx-2 text-white rounded bg-indigo-600"
               >
-                <div className="logo-symbol text-orange">
-                  <svg
-                    className="fill-current"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
-                  </svg>
-                </div>
-                <div className="logo-type ml-2 tracking-wide">Gallery</div>
+                Home
               </a>
-              <div className="nav-menu hidden sm:flex h-full">
-                <ul className="list-reset h-full flex">
-                  <li className="h-full">
-                    <a
-                      href="#"
-                      className="no-underline h-full flex items-center px-4 md:px-5 text-grey hover:text-black"
-                    >
-                      Wallpapers
-                    </a>
-                  </li>
-                  <li className="h-full">
-                    <a
-                      href="#"
-                      className="no-underline h-full flex items-center px-4 md:px-5 text-grey hover:text-black"
-                    >
-                      Nature
-                    </a>
-                  </li>
-                  <li className="h-full">
-                    <a
-                      href="#"
-                      className="no-underline h-full flex items-center px-4 md:px-5 text-grey hover:text-black"
-                    >
-                      People
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="nav-login hidden sm:flex ml-auto h-full">
-                <a
-                  href="#"
-                  className="no-underline h-full flex items-center px-4 md:px-5 text-grey hover:text-black"
-                >
-                  Login
-                </a>
-                <a
-                  href="#"
-                  className="no-underline h-full flex items-center px-4 md:px-5 text-grey hover:text-black"
-                >
-                  Register
-                </a>
-              </div>
               <a
                 href="#"
-                className="hamburger ml-auto flex sm:hidden no-underline h-full flex items-center px-4 md:px-5 text-grey hover:text-black"
+                className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="feather ml-48 feather-menu"
-                >
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
+                About
               </a>
-            </header>
+              <a
+                href="#"
+                className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
+              >
+                Features
+              </a>
+              <a
+                href="#"
+                className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
+              >
+                Pricing
+              </a>
+              <a
+                href="#"
+                className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
+              >
+                Contact
+              </a>
+              <a
+                href="#"
+                className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300"
+              >
+                Login
+              </a>
+              <a
+                href="#"
+                className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-solid border-indigo-600 rounded hover:bg-indigo-600 hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1"
+              >
+                Signup
+              </a>
+            </div>
           </div>
-        </div>
+        </nav>
       </div>
     );
   }
