@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-
 var CONFIG = {
-  __APP_ID__: '22b7b54287910389edfae878f576488bbc5b540a46daa0d2833ba858ce03b143',
-  BASE_URL: 'https://api.unsplash.com/photos'
-}
+  __APP_ID__:
+    "22b7b54287910389edfae878f576488bbc5b540a46daa0d2833ba858ce03b143",
+  BASE_URL: "https://api.unsplash.com/photos",
+};
 
 const LOAD_STATE = {
-  SUCCESS: 'SUCCESS',
-  ERROR: 'ERROR',
-  LOADING: 'LOADING'
+  SUCCESS: "SUCCESS",
+  ERROR: "ERROR",
+  LOADING: "LOADING",
 };
 
 class Site extends Component {
@@ -21,14 +21,14 @@ class Site extends Component {
       totalPhotos: 0,
       perPage: 5,
       currentPage: 1,
-      loadState: LOAD_STATE.LOADING
-    }
+      loadState: LOAD_STATE.LOADING,
+    };
   }
-  
+
   componentDidMount() {
     this.fetchPhotos(this.state.currentPage);
   }
-  
+
   fetchPhotos(page) {
     var self = this;
     const { perPage } = this.state;
@@ -37,41 +37,42 @@ class Site extends Component {
       params: {
         client_id: appId,
         page: page,
-        per_page: perPage
-      }
+        per_page: perPage,
+      },
     };
-    
+
     this.setState({ loadState: LOAD_STATE.LOADING });
-    axios.get(baseUrl, options)
+    axios
+      .get(baseUrl, options)
       .then((response) => {
         self.setState({
           photos: response.data,
-          totalPhotos: parseInt(response.headers['x-total']),
+          totalPhotos: parseInt(response.headers["x-total"]),
           currentPage: page,
-          loadState: LOAD_STATE.SUCCESS
+          loadState: LOAD_STATE.SUCCESS,
         });
       })
       .catch(() => {
         this.setState({ loadState: LOAD_STATE.ERROR });
       });
   }
-  
+
   render() {
     return (
       <div className="app">
+        {this.state.loadState === "Not found" ? (
+          <div className="loader"></div>
+        ) : (
+          <List data={this.state.photos} />
+        )}
         <Pagination
           current={this.state.currentPage}
-          total={this.state.totalPhotos} 
-          perPage={this.state.perPage} 
+          total={this.state.totalPhotos}
+          perPage={this.state.perPage}
           onPageChanged={this.fetchPhotos.bind(this)}
         />
-        {this.state.loadState === LOAD_STATE.LOADING
-            ? <div className="loader"></div>
-            : <List data={this.state.photos} />  
-          }
-        
       </div>
-    )
+    );
   }
 }
 
@@ -82,42 +83,44 @@ const ListItem = ({ photo }) => {
         <img src={photo.urls.small} alt="" />
       </div>
       <div className="card__footer media">
-        <img src={photo.user.profile_image.small} alt="" className="media__obj" />
+        <img
+          src={photo.user.profile_image.small}
+          alt=""
+          className="media__obj"
+        />
         <div className="media__body">
-          <a href={photo.user.portfolio_url} target="_blank">{ photo.user.name }</a>
+          <a href={photo.user.portfolio_url} target="_blank">
+            {photo.user.name}
+          </a>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const List = ({ data }) => {
-  var items = data.map(photo => <ListItem key={photo.id} photo={photo}/>);
-  return (
-    <div className="grid">
-      { items }
-    </div>
-  )
-}
+  var items = data.map((photo) => <ListItem key={photo.id} photo={photo} />);
+  return <div className="grid">{items}</div>;
+};
 
-class Pagination extends Component {  
+class Pagination extends Component {
   pages() {
     var pages = [];
-    for(var i = this.rangeStart(); i <= this.rangeEnd(); i++) {
-      pages.push(i)
-    };
+    for (var i = this.rangeStart(); i <= this.rangeEnd(); i++) {
+      pages.push(i);
+    }
     return pages;
   }
 
   rangeStart() {
     var start = this.props.current - this.props.pageRange;
-    return (start > 0) ? start : 1
+    return start > 0 ? start : 1;
   }
 
   rangeEnd() {
     var end = this.props.current + this.props.pageRange;
     var totalPages = this.totalPages();
-    return (end < totalPages) ? end : totalPages;
+    return end < totalPages ? end : totalPages;
   }
 
   totalPages() {
@@ -131,9 +134,9 @@ class Pagination extends Component {
   prevPage() {
     return this.props.current - 1;
   }
-  
+
   hasFirst() {
-    return this.rangeStart() !== 1
+    return this.rangeStart() !== 1;
   }
 
   hasLast() {
@@ -156,48 +159,61 @@ class Pagination extends Component {
     return (
       <div className="pagination">
         <div className="pagination__left">
-          <a href="#" className={!this.hasPrev() ? 'hidden': ''}
-            onClick={e => this.changePage(this.prevPage())}
-          >Prev</a>
+          <a
+            href="#"
+            className={!this.hasPrev() ? "hidden" : ""}
+            onClick={(e) => this.changePage(this.prevPage())}
+          >
+            Prev
+          </a>
         </div>
 
         <div className="pagination__mid">
           <ul>
-            <li className={!this.hasFirst() ? 'hidden' : ''}>
-              <a href="#" onClick={e => this.changePage(1)}>1</a>
+            <li className={!this.hasFirst() ? "hidden" : ""}>
+              <a href="#" onClick={(e) => this.changePage(1)}>
+                1
+              </a>
             </li>
-            <li className={!this.hasFirst() ? 'hidden' : ''}>...</li>
-            {
-              this.pages().map((page, index) => {
-                return (
-                  <li key={index}>
-                    <a href="#"
-                      onClick={e => this.changePage(page)}
-                      className={ this.props.current == page ? 'current' : '' }
-                    >{ page }</a>
-                  </li>
-                );
-              })
-            }
-            <li className={!this.hasLast() ? 'hidden' : ''}>...</li>
-            <li className={!this.hasLast() ? 'hidden' : ''}>
-              <a href="#" onClick={e => this.changePage(this.totalPages())}>{ this.totalPages() }</a>
+            <li className={!this.hasFirst() ? "hidden" : ""}>...</li>
+            {this.pages().map((page, index) => {
+              return (
+                <li key={index}>
+                  <a
+                    href="#"
+                    onClick={(e) => this.changePage(page)}
+                    className={this.props.current == page ? "current" : ""}
+                  >
+                    {page}
+                  </a>
+                </li>
+              );
+            })}
+            <li className={!this.hasLast() ? "hidden" : ""}>...</li>
+            <li className={!this.hasLast() ? "hidden" : ""}>
+              <a href="#" onClick={(e) => this.changePage(this.totalPages())}>
+                {this.totalPages()}
+              </a>
             </li>
           </ul>
         </div>
 
         <div className="pagination__right">
-          <a href="#" className={!this.hasNext() ? 'hidden' : ''}
-            onClick={e => this.changePage(this.nextPage())}
-          >Next</a>
+          <a
+            href="#"
+            className={!this.hasNext() ? "hidden" : ""}
+            onClick={(e) => this.changePage(this.nextPage())}
+          >
+            Next
+          </a>
         </div>
       </div>
-    );    
+    );
   }
-};
+}
 
 export default Site;
 
 Pagination.defaultProps = {
-  pageRange: 2
-}
+  pageRange: 2,
+};

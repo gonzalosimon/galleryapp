@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import Header from "./Components/Header.js";
 import Home from "./Components/Home.js"
 import Footer from "./Components/Footer.js";
-import Site from "./Components/Site.js";
-
-
 import "./App.css";
 
 class App extends Component {

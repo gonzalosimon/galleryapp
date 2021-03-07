@@ -1,11 +1,9 @@
 import React from "react";
-import { TwitterShareButton } from "react-share";
-import TwitterIcon from "react-share";
 
 const Post = ({ photo }) => {
   return (
     <div>
-      <section className="overflow-hidden rounded-lg shadow-lg">
+      <section className="overflow-hidden rounded-full shadow-lg">
         <a href="Image">
           <img
             src={photo.urls.small}
@@ -42,13 +40,12 @@ const Post = ({ photo }) => {
           >
             <span>{photo.total_likes}</span>
           </a>
-          <TwitterShareButton size={32} round={true} >
-  {shareCount => <span className="myShareCountWrapper">Share</span>}
-</TwitterShareButton>
         </footer>
       </section>
     </div>
   );
 };
+
+
 
 export default Post;
