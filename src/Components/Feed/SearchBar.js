@@ -20,7 +20,7 @@ class Search extends Component {
             <h2>Image Search: </h2>
           </label>
           <input
-            className="w-full text-black mt-12 p-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-transparent"
+            className="w-full text-black mt-12 p-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-green-900 focus:border-transparent"
             type="search"
             placeholder="Search free high-resolution photos"
             value={this.state.val}

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import Feed from "./Components/Feed.js";
-import Footer from "./Components/Footer.js";
 import Header from "./Components/Header.js";
+import Home from "./Components/Home.js"
+import Footer from "./Components/Footer.js";
+import Site from "./Components/Site.js";
+
 
 import "./App.css";
 
@@ -10,7 +12,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Feed />
+        <Home />
         <Footer />
       </div>
     );
