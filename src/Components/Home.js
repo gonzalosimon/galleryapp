@@ -3,6 +3,7 @@ import axios from "axios";
 import Search from "./Feed/SearchBar.js";
 import "../App.css";
 import Post from "./Feed/Post.js";
+import ResponsiveMasonry from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -26,7 +27,7 @@ class Home extends Component {
     this.state = {
       photos: [],
       totalPhotos: 0,
-      perPage: 9,
+      perPage: 18,
       currentPage: 1,
       loadState: LOAD_STATE.LOADING,
     };
@@ -113,14 +114,15 @@ class Home extends Component {
 
 const List = ({ data }) => {
   const items = data.map((photo) => {
-    return <Post key={photo.id} photo={photo} />;
+    return (
+      <div className="p-1 md:py-6 md:px-6 grid-sizer">
+        {" "}
+        <Post key={photo.id} photo={photo} />
+      </div>
+    );
   });
 
-  return (
-    <Masonry className="my-6 md:px-6" columnsCount={3} gutter="20px">
-      {items}
-    </Masonry>
-  );
+  return <Masonry className=" grid grid-cols-3 ">{items}</Masonry>;
 };
 
 class Pagination extends Component {
