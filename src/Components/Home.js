@@ -3,7 +3,6 @@ import axios from "axios";
 import Search from "./Feed/SearchBar.js";
 import "../App.css";
 import Post from "./Feed/Post.js";
-import ResponsiveMasonry from "react-responsive-masonry";
 import Masonry from "react-responsive-masonry";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -79,7 +78,7 @@ class Home extends Component {
     return (
       <div className="font-Montserrat text-white">
         <section className="md:p-44 p-16 bg-home-background">
-          <h1 className="text-5xl font-bold">Photo Gallery</h1>
+          <h1 className="text-5xl font-bold">Simon's Gallery</h1>
           <div className="text-lg	mt-5">
             <h3>
               The internet's source of{" "}
@@ -92,7 +91,7 @@ class Home extends Component {
           <div className="mt-4">
             <Search userSubmit={this.onSearchSubmit} />
             <p className="mt-4">
-              Trending: flower, wallpapers, backgrounds, coffee"
+              Trending: flower, wallpapers, backgrounds, coffee
             </p>
           </div>
         </section>
@@ -101,12 +100,7 @@ class Home extends Component {
         ) : (
           <List data={this.state.photos} />
         )}
-        <Pagination
-          current={this.state.currentPage}
-          total={this.state.totalPhotos}
-          perPage={this.state.perPage}
-          onPageChanged={this.fetchPhotos.bind(this)}
-        />
+    
       </div>
     );
   }

@@ -1,20 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
 import Header from "./Components/Header.js";
-import Home from "./Components/Home.js"
+import Home from "./Components/Home.js";
 import Footer from "./Components/Footer.js";
+import { BrowserRouter, Route } from "react-router-dom";
+import Profile from "./Components/HeaderComponents/Profile";
+import Messages from "./Components/HeaderComponents/Messages";
+import Settings from "./Components/HeaderComponents/Settings";
+import Post from "./Components/HeaderComponents/Post";
 
 import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
-      <div>
+const App = () => {
+  return (
+    <div>
+      <BrowserRouter>
         <Header />
-        <Home />
+        <Route exact path="/" component={Home} />
+        <Route path="/post" component={Post} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/messages" component={Messages} />
+        <Route path="/settings" component={Settings} />
         <Footer />
-      </div>
-    );
-  }
-}
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;
