@@ -26,7 +26,7 @@ class Home extends Component {
     this.state = {
       photos: [],
       totalPhotos: 0,
-      perPage: 3,
+      perPage: 18,
       currentPage: 1,
       loadState: LOAD_STATE.LOADING,
     };
