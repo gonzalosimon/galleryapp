@@ -7,26 +7,15 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { API_KEY } from "./Api";
 
-// var CONFIG = {
-
-//   BASE_URL: 'https://api.unsplash.com/photos'
-//   // __APP_ID__: '22b7b54287910389edfae878f576488bbc5b540a46daa0d2833ba858ce03b143',
-// }
-
-const LOAD_STATE = {
-  SUCCESS: "SUCCESS",
-  ERROR: "ERROR",
-  LOADING: "LOADING",
-};
-
 const Home = () => {
-  const [value, setValue] = useState("green");
   const [results, setResults] = useState({
     photos: [],
     page: 1,
     perPage: 50,
     isLoading: false,
   });
+  const [value, setValue] = useState("green");
+  const something_good_tonight = true;
 
   const fetchPhotos = useCallback((page, perPage) => {
     API_KEY.photos.list({ page: page, perPage: perPage }).then((data) => {
@@ -65,6 +54,19 @@ const Home = () => {
       fetchPhotos(results.page + 1, 50);
     }
   };
+
+  const onSearchSubmit = async (term) => {
+    fetch(
+      `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${value}&orientation=squarish`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setResults(data.results);
+      });
+    setResults({ photos: results });
+  };
+
   const { photos, isLoading } = results;
   let loader;
   if (photos.length < 0 || isLoading) {
@@ -84,18 +86,23 @@ const Home = () => {
           <h3> Powered by creators everywhere.</h3>
         </div>
         <div className="mt-4">
-          <Search />
+          <Search userSubmit={onSearchSubmit} />
           <p className="mt-4">
             Trending: flower, wallpapers, backgrounds, coffee
           </p>
         </div>
       </section>
-      <ResponsiveMasonry className="p-6 md:py-6 md:px-6 grid-sizer" columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
-        <Masonry columnsCount={3} gutter="20px">
-          {photos.length &&
-            photos.map((photo, i) => <img key={i} src={photo.urls.small} />)}
-        </Masonry>
-      </ResponsiveMasonry>
+    {
+      something_good_tonight && <ResponsiveMasonry
+      className="p-6 md:py-6 md:px-6 grid-sizer"
+      columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+    >
+      <Masonry columnsCount={3} gutter="20px">
+        {photos.length &&
+          photos.map((photo, i) => <Post key={i} photoData={photo} />)}
+      </Masonry>
+    </ResponsiveMasonry>
+    }
     </div>
   );
 };
