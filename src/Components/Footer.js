@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer mt-24 bg-white relative pt-1 border-b-2 border-green-700">
+    <footer className="footer bg-white relative pt-1 border-b-2 border-blue-700">
       <div className="container mx-auto px-6">
         <div className="sm:flex sm:mt-8">
           <div className="mt-8 sm:mt-0 sm:w-full sm:px-80 flex flex-col md:flex-row justify-between">
@@ -13,7 +13,7 @@ const Footer = () => {
               <span className="my-2">
                 <a
                   href="https://gbsimon.com/"
-                  className="text-green-700  text-md hover:text-green-500"
+                  className="text-blue-700  text-md hover:text-blue-500"
                 >
                   My Site
                 </a>
@@ -21,7 +21,7 @@ const Footer = () => {
               <span className="my-2">
                 <a
                   href="https://gonzalosimon.hashnode.dev/"
-                  className="text-green-700  text-md hover:text-green-500"
+                  className="text-blue-700  text-md hover:text-blue-500"
                 >
                   Blog
                 </a>
@@ -34,7 +34,7 @@ const Footer = () => {
               <span className="my-2">
                 <a
                   href="https://github.com/gb-simon"
-                  className="text-green-700  text-md hover:text-green-500"
+                  className="text-blue-700  text-md hover:text-blue-500"
                 >
                   GitHub
                 </a>
@@ -42,7 +42,7 @@ const Footer = () => {
               <span className="my-2">
                 <a
                   href="https://www.linkedin.com/in/gonzalo-simon-aguilar/"
-                  className="text-green-700  text-md hover:text-green-500"
+                  className="text-blue-700  text-md hover:text-blue-500"
                 >
                   LinkedIn
                 </a>
@@ -54,7 +54,7 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="mt-16 border-t-2 border-gray-300 flex flex-col items-center">
           <div className="sm:w-2/3 text-center py-6">
-            <p className="text-sm text-green-700 font-bold mb-2">
+            <p className="text-sm text-blue-700 font-bold mb-2">
               Gonzalo Simon <br />
               <p>aguilarsimon01@gmail.com</p>
             </p>
